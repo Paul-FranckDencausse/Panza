@@ -1,17 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const logementsCtrl = require("./../controllers/logements.js");
+const auth = require("./../middlewares/auth.js");
 
 // Les routes
-router.get("/", logementsCtrl.getAllHousing);
+router.get("/", auth, logementsCtrl.getAllHousing);
 
-router.post("/", logementsCtrl.createHousing);
+router.post("/", auth, logementsCtrl.createHousing);
 
-router.get("/:id", logementsCtrl.getHousingById);
+router.get("/:id", auth, logementsCtrl.getHousingById);
 
-router.put("/:id", logementsCtrl.updateHousingById);
+router.put("/:id", auth, logementsCtrl.updateHousingById);
 
-router.delete("/:id", logementsCtrl.deleteHousingById);
+router.delete("/:id", auth, logementsCtrl.deleteHousingById);
 
 // Fin du document
 module.exports = router;
