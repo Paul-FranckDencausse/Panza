@@ -17,10 +17,9 @@ module.exports = (req, res, next) => {
       req.auth = {
         userId: userId,
       };
+      // Si tout va bien, on passe au code suivant avec next
+      next();
     }
-
-    // Si tout va bien, on passe au code suivant avec next
-    next();
   } catch (error) {
     res.status(401).json({ error });
   }

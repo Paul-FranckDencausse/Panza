@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 });
 
 mongoose
-  .connect("mongodb+srv://adminTest:kuFFbQ3TZb9sfsNl@cluster0.2vatb0h.mongodb.net/casaNum2?retryWrites=true&w=majority", {
+  .connect("mongodb+srv://adminTest:kuFFbQ3TZb9sfsNl@cluster0.2vatb0h.mongodb.net/casa?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

@@ -1,12 +1,12 @@
 const Logements = require("../models/Logements.js");
 
-exports.createHousing = (req, res, next) => {
+exports.getAllHousing = (req, res, next) => {
   Logements.find()
     .then((logements) => res.status(200).json(logements))
     .catch((error) => res.status(400).json({ error }));
 };
 
-exports.getAllHousing = (req, res, next) => {
+exports.createHousing = (req, res, next) => {
   const logement = new Logements({
     ...req.body, // On décompose toutes les données dans le req.body
   });
@@ -18,11 +18,11 @@ exports.getAllHousing = (req, res, next) => {
 
 exports.getHousingById = (req, res, next) => {
   Logements.findOne({ _id: req.params.id })
-    .then((logements) => {
-      console.log(logements);
+    .then((logement) => {
+      console.log(logement);
       res.status(200).json({
         id: logement._id,
-        title: logements.title,
+        title: logement.title,
         cover: "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-2-1.jpg",
         pictures: [
           "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-2-1.jpg",
@@ -30,15 +30,15 @@ exports.getHousingById = (req, res, next) => {
           "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-2-3.jpg",
           "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-2-4.jpg",
         ],
-        description: logements.description,
+        description: logement.description,
         host: {
-          name: "Franck Maher",
+          name: logement.nameHost,
           picture: "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/profile-picture-2.jpg",
         },
-        rating: "3",
-        location: "Ile de France - Paris 20e",
+        rating: logement.rating,
+        location: logement.location,
         equipments: ["Wi-fi", "Cuisine équipée", "Télévision", "Sèche Cheveux"],
-        tags: ["Buttes Chaumont", "Laumière", "Studio"],
+        tags: logement.tags.split(","),
       });
     })
     .catch((error) => res.status(404).json({ error }));
